@@ -1,0 +1,20 @@
+button{
+    margin-bottom: 1rem;
+}
+
+mat-form-field{
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin-top: 1rem;
+}
+
+button{
+  margin-left: 1rem;
+}
+
+
+.boton-rojo {
+  background-color: rgb(206, 21, 21);
+  color: white;
+}

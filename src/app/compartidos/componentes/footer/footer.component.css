@@ -1,0 +1,24 @@
+.footer {
+    margin-top: 2rem;
+    padding: 10px 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .col {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+    color: #6c757d;
+  }
+  

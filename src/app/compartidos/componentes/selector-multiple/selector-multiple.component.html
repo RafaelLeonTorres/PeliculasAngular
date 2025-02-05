@@ -1,0 +1,48 @@
+<div class="contenedor">
+    <!-- Lista de elementos no seleccionados -->
+    <ul aria-label="Lista de elementos no seleccionados">
+      @for (elemento of NoSeleccionados; track $index) {
+        <li
+          (click)="seleccionar(elemento, $index)"
+          tabindex="0"
+          (keydown)="$event.key === 'Enter' && seleccionar(elemento, $index)"
+        >
+          {{ elemento.valor }}
+        </li>
+      }
+    </ul>
+  
+    <!-- Botones para selección/des-selección -->
+    <div class="div-botones">
+      <button
+        type="button"
+        class="boton-seleccion"
+        (click)="seleccionarTodo()"
+        aria-label="Seleccionar todos los elementos"
+      >
+      <mat-icon>keyboard_double_arrow_right</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="boton-seleccion"
+        (click)="deseleccionarTodo()"
+        aria-label="Deseleccionar todos los elementos"
+      >
+      <mat-icon>keyboard_double_arrow_left</mat-icon>
+      </button>
+    </div>
+  
+    <!-- Lista de elementos seleccionados -->
+    <ul aria-label="Lista de elementos seleccionados">
+      @for (elemento of Seleccionados; track $index) {
+        <li
+          (click)="deseleccionar(elemento, $index)"
+          tabindex="0"
+          (keydown)="$event.key === 'Enter' && deseleccionar(elemento, $index)"
+        >
+          {{ elemento.valor }}
+        </li>
+      }
+    </ul>
+  </div>
+  
