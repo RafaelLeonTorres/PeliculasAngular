@@ -45,7 +45,7 @@ export class IndiceGenerosComponent {
     console.log('indice generos borrar: ', genero.id);
     this.generosService.borrar(genero.id)
       .subscribe(() => {
-        this.paginacion = {pagina: 1, registrosPorPagina: this.registrosPagina};
+        this.paginacion.pagina = 1;
         this.CargarRegistros();
         alert('Se ha borrado con éxito el genero: ' + genero.nombre);
       },

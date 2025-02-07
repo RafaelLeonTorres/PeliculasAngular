@@ -20,10 +20,31 @@ export class ActoresService {
     return this.http.get<ActorDTO[]>(this.urlBase, { params: queryParams, observe: 'response' });
   }
 
+  public obtenerPorId(id: number): Observable<ActorDTO> {
+    console.log('Obtener actor:', id);
+    return this.http.get<ActorDTO>(`${this.urlBase}/${id}`).pipe(
+      catchError(error => {
+        console.error('Error en obtenerPorId:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public actualizar(id: number, actor: ActorCreacionDTO): Observable<any> {
+    console.log('Actualizar actor:', id, actor);
+    console.log('fecha nacimiento actor: ', actor.fechaNacimiento);
+    const formData = this.construirFormData(actor);
+    return this.http.put(`${this.urlBase}/${id}`, formData).pipe(
+      catchError(error => {
+        console.error('Error en actualizar:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   public crear(actor: ActorCreacionDTO) {
     const formData = this.construirFormData(actor);
     console.log('urlbase:', this.urlBase);
-
     console.log(formData);
   
     return this.http.post(this.urlBase, formData).pipe(
@@ -31,26 +52,42 @@ export class ActoresService {
         // Loguear el error
         console.error('Error en la creación del actor:', error);
         // Retornar el error o un observable vacío si quieres manejarlo de otra manera
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
 
-  private construirFormData(actor: ActorCreacionDTO){
+  public borrar(id: number){
+    console.log('Borrando actores service, ', id);
+    return this.http.delete(`${this.urlBase}/${id}`).pipe(
+      catchError(error => {
+        console.error('Error en borrar:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  private construirFormData(actor: ActorCreacionDTO) {
     const formData = new FormData();
 
+    // Añadir el campo 'nombre'
     formData.append('nombre', actor.nombre);
 
-    //formData.append('biografia', 'biografia');
+    // Eliminar la línea inutil de append para 'biografia'
+    // formData.append('biografia', 'biografia');
 
-    //2024-01-25T15:18:20 solo toma la fecha sin la hora
-    formData.append('fechaNacimiento', actor.fechaNacimiento.toISOString().split('T')[0]);
+    // Mejorar la lógica para la fecha de nacimiento
+    if (actor.fechaNacimiento) {
+        const birthDate = new Date(actor.fechaNacimiento);
+        formData.append('fechaNacimiento', birthDate.toISOString().split('T')[0]);
+    }
 
-    if(actor.foto){
-      formData.append('foto', actor.foto);
+    // Añadir el campo 'foto' solo si no es nulo/undefined
+    if (actor.foto) {
+        formData.append('foto', actor.foto);
     }
 
     return formData;
-      
-  }
+}
+
 }

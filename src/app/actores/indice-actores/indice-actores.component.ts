@@ -42,6 +42,11 @@ export class IndiceActoresComponent {
   }
 
   borrar(id: number){
-
+    console.log('Borrando actor: ', id);
+    this.actoresService.borrar(id)
+    .subscribe(() => {
+      this.paginacion.pagina = 1;
+      this.cargarRegistros();
+    })
   }
 }

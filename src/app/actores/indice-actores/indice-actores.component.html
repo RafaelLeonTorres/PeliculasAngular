@@ -19,7 +19,7 @@
                     <a routerLink="/actores/editar/{{elemento.id}}" mat-flat-button>Editar</a>
                     <button mat-flat-button class="boton-rojo"
                     [swal]="{title: 'Confirmación', text: '¿Estas seguro de eliminar este registro?', showCancelButton: true}"
-                    (confirm)="borrar(elemento)"
+                    (confirm)="borrar(elemento.id)"
                     >Borrar</button>
                     <!--<a class="rounded-flat-button-warn" (click)="borrar(elemento.id)">Borrar</a>-->
                 </td>
