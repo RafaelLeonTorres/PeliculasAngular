@@ -1,3 +1,5 @@
 {
-    "CodeGPT.apiKey": "LM Studio"
+    "CodeGPT.apiKey": "LM Studio",
+    "appService.defaultWebAppToDeploy": "/subscriptions/329121c2-6cb4-4381-a30d-18a02c679b95/resourceGroups/PeliculasAPI/providers/Microsoft.Web/sites/PeliculasAngular",
+    "appService.deploySubpath": "dist"
 }

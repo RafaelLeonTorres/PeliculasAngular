@@ -5,17 +5,18 @@ import { ActorCreacionDTO, ActorDTO } from './actores';
 import { catchError, Observable, throwError } from 'rxjs';
 import { PaginacionDTO } from '../compartidos/modelos/paginacionDTO';
 import { construirQueryParams } from '../compartidos/funciones/construirQueryParams';
+import { IServicioCRUD } from '../compartidos/interfaces/IServicioCRUD';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActoresService {
+export class ActoresService implements IServicioCRUD<ActorDTO, ActorCreacionDTO> {
 
   constructor() { }
   private http = inject(HttpClient);
   private urlBase = environment.apiURL + '/actores'
 
-  public obtenerPaginado(paginacion: PaginacionDTO): Observable<HttpResponse<ActorDTO[]>> {
+  public ObtenerPaginado(paginacion: PaginacionDTO): Observable<HttpResponse<ActorDTO[]>> {
     let queryParams = construirQueryParams(paginacion);
     return this.http.get<ActorDTO[]>(this.urlBase, { params: queryParams, observe: 'response' });
   }
@@ -42,7 +43,7 @@ export class ActoresService {
     );
   }
 
-  public crear(actor: ActorCreacionDTO) {
+  public crear(actor: ActorCreacionDTO) : Observable<any>{
     const formData = this.construirFormData(actor);
     console.log('urlbase:', this.urlBase);
     console.log(formData);
@@ -57,7 +58,7 @@ export class ActoresService {
     );
   }
 
-  public borrar(id: number){
+  public borrar(id: number): Observable<any>{
     console.log('Borrando actores service, ', id);
     return this.http.delete(`${this.urlBase}/${id}`).pipe(
       catchError(error => {
